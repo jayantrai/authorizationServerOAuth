@@ -63,7 +63,7 @@ create table if not exists role_user (
   constraint role_user_ibfk_2 foreign key (user_id) references user (id)
 ) engine=innodb ;
 
--- token store
+-- token store to save it in the database
 create table if not exists oauth_client_token (
   token_id VARCHAR(256),
   token LONG VARBINARY,

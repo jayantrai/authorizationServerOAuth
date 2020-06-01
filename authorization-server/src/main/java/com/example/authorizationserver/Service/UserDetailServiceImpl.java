@@ -7,11 +7,14 @@ import org.springframework.security.authentication.AccountStatusUserDetailsCheck
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.example.authorizationserver.Model.AuthUserDetail;
 import com.example.authorizationserver.Model.User;
 import com.example.authorizationserver.Repository.UserDetailRepository;
 
+
+@Service
 public class UserDetailServiceImpl implements UserDetailsService {
 	
 	
