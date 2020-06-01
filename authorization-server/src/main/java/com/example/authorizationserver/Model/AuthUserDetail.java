@@ -8,7 +8,29 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
+
+
 public class AuthUserDetail extends User implements UserDetails {
+	
+	
+	
+
+	public AuthUserDetail(User user) {
+		super(user);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+
+	public AuthUserDetail() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

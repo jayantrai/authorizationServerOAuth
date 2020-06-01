@@ -3,10 +3,12 @@ package com.example.authorizationserver.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.example.authorizationserver.Model.AuthUserDetail;
 import com.example.authorizationserver.Model.User;
 import com.example.authorizationserver.Repository.UserDetailRepository;
 
@@ -23,7 +25,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		
 		optionalUser.orElseThrow(() -> new UsernameNotFoundException("Username or password wrong"));
 		
-		return userDetail;
+		UserDetails userDetails = new AuthUserDetail(optionalUser.get());
+		
+
+		new AccountStatusUserDetailsChecker().check(userDetails);
+		
+		return userDetails;
 	}
 
 }
