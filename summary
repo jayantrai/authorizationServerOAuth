@@ -1,0 +1,30 @@
+OAuth2
+
+Start the boot project by adding Spring Web, Spring Security, JPA, OAuth2, and MySQL connector maven dependency. 
+
+-> First, we need to annotate the main class with @EnableAuthorizationServer. 
+Then, we will connect the application to the MySQL database which can be configured in the application.yml file. 
+Now we will create schema to create a database and table as well as insert values into it using the .sql file in eclipse. 
+
+-> Now we need to create four packages, Config, Model, Repository, Service. 
+
+-> In service, we need to implememt UserDetailsService(Spring Security) which overrides loadUserByUsername 
+where we need to @Autowired UserDetailRepository. In the overriden method, we target the User from Model, throw
+UserNameNotFoundException(Spring Security). Also use UserDetails(Spring Security) which stores user information 
+for authentication and provides user information. Also check whether the user is valid or not with AccountStatusUserDetailsChecker().
+
+-> In Repository, extend JpaRepository<User, Integer> and findByUsername.
+
+-> In Model, create User, Role, Permission class whcih implements Serializable and annotate with @Entity and @Table.
+Create AuthUserDetail class which implements UserDetails from Spring Security which contains method for overriding such
+as GrantedAuthority, isAccountExpired etc. 
+
+-> In Config, create class which implements AuthorizationServerConfigurer to configure OAuth server which overrides methods. 
+However, since we are fetching the user from the database, we have to use jdbc(dataSource) to configure with the database. 
+We also need authenticationManager to process the Authentication request in the endpoint. It also requires passwordEncoder
+and datasource. Now in order to save the token to the database, we require jdbcTokenStore with endpoint. This is required
+for authorizatioServer. In Config, create class to configure WebSecurity which extends WebSecurityConfigurerAdapter which 
+overrides AuthenticationManagerBuilder and authenticates userDetailsService with passwordEncoder. Create Bean for
+AuthenticationManager and also PasswordEncoder which returns PasswordEncoderFactories. 
+
+In order to store the token in the database, we need to create a schema for access token, client token, refresh token.
